@@ -32,9 +32,17 @@ public class Restaurant extends NamedEntity
     public void setRating(int rating) {
         this.rating = rating;
     }
+
+    /**
+     * Увеличить рейтинг на 1
+     */
     public void addRatting(){
         rating++;
     }
+
+    /**
+     * Уменьшить рейтинг на 1
+     */
     public void lowerRatting(){
         rating = (rating - 1 < 0) ? 0 : rating - 1;
     }
