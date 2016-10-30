@@ -1,13 +1,21 @@
 package model;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by Александр on 26.10.2016.
  */
+@Entity
+@Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id"})})
 public class Menu extends NamedEntity
 {
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "menu")
+    @OrderBy
     private List<Dish> dishList;
+
+    @OneToOne
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
     public Menu(Integer id, String name) {

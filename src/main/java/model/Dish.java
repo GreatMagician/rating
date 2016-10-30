@@ -1,12 +1,21 @@
 package model;
 
+import javax.persistence.*;
+
 /**
  * Created by Александр on 26.10.2016.
  * Блюдо
  */
+@Entity
+@Table(name = "dish")
 public class Dish extends NamedEntity
 {
+    @Column(name = "price")
     private Double price;
+
+    @ManyToOne
+    @JoinColumn(name = "menu_id", nullable = false)
+    private Menu menu;
 
     public Dish(){}
     public Dish(Integer id, String name) {
@@ -24,5 +33,13 @@ public class Dish extends NamedEntity
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 }

@@ -1,14 +1,21 @@
 package model;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by Александр on 26.10.2016.
  * Ресторан
  */
+@Entity
+@Table(name = "restaurant")
 public class Restaurant extends NamedEntity
 {
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OrderBy
     private Menu menu;
+
+    @Column(name = "rating")
     private int rating;
 
     public Restaurant(){}

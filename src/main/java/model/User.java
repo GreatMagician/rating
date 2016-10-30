@@ -1,14 +1,34 @@
 package model;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
 import java.util.Set;
 
 /**
  * Created by Александр on 26.10.2016.
  */
+@Entity
+@Table(name = "user")
 public class User extends NamedEntity
 {
+    @Column(name = "password", nullable = false)
+    @NotEmpty
+    @Length(min = 5)
     private String password;
+
+    @Column(name = "email", nullable = false, unique = true)
+    @Email
+    @NotEmpty
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @BatchSize(size = 200)
     private Set<Role> roles;
 
     public User (){
